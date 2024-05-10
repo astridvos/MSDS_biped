@@ -31,7 +31,7 @@ def dSdt_frozen_body(M, C, S, t):
     return np.array([q1_d, q2_d, q3_d, q4_d, q5_d, sol[0], sol[1], sol[2], sol[3], sol[4]])
 
 
-def rk4(M, C, f, y0, t):
+def rk4_heelstrike(M, C, f, y0, t):
     x_value = 0.0
     y = np.zeros((len(t), len(y0)))
     y[0] = y0
@@ -48,6 +48,18 @@ def rk4(M, C, f, y0, t):
             x_value = get_all_coordinates(y[i+1][:5])[-4]
             return t, y, x_value
     return t, y, x_value
+
+def rk4(M, C, f, y0, t):
+    y = np.zeros((len(t), len(y0)))
+    y[0] = y0
+    h = t[1] - t[0]
+    for i in range(len(t)-1):
+        k1 = f(M, C, y[i], t[i])
+        k2 = f(M, C, y[i] + h/2*k1, t[i] + h/2)
+        k3 = f(M, C, y[i] + h/2*k2, t[i] + h/2)
+        k4 = f(M, C, y[i] + h*k3, t[i] + h)
+        y[i+1] = y[i] + h/6*(k1 + 2*k2 + 2*k3 + k4)
+    return t, y, 0.0
 
 def heelstrike(M, q_min, q_d_min):
     q_plus = np.array([q_min[1], q_min[0], q_min[3], q_min[2], q_min[4]])
@@ -83,7 +95,7 @@ def save_animation_data(t, ans, transitions, x_values):
     print(f"Data saved in model_verification_results/{date_string}... .npy")
 
     
-def make_animation(t, ans, transitions, x_values):
+def make_animation(t, ans, transitions, x_values, foldername):
     (x_G1, y_G1, x_G2, y_G2, x_G3, y_G3, x_G4, y_G4, x_G5, y_G5, 
      x_B, y_B, x_C, y_C, x_D, y_D, x_E, y_E, x_F, y_F
      ) = get_all_coordinates(ans.T[:5])
@@ -121,7 +133,7 @@ def make_animation(t, ans, transitions, x_values):
     # save animation in a map named gifs
     date_string = datetime.datetime.now().strftime("%d%b_%Hh%M")
     ani.save(f"model_verification_gifs/{date_string}.gif", writer='pillow', fps=25)
-    print(f"Animation saved in model_verification_gifs/{date_string}.gif")
+    print(f"Animation saved in {foldername}/{date_string}.gif")
 
 
 def get_all_coordinates(q):
