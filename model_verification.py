@@ -65,3 +65,5 @@ plot_energy(t, ans, T, V)
 
 #%% option to make a gif
 make_animation(t, ans, transitions, x_values)
+
+# %%

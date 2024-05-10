@@ -76,11 +76,11 @@ def plot_energy(t, ans, T, V):
 
 def save_animation_data(t, ans, transitions, x_values):
     date_string = datetime.datetime.now().strftime("%d%b_%Hh%M")
-    np.save(f'results/{date_string}_t.npy', t)
-    np.save(f'results/{date_string}_ans.npy', ans)
-    np.save(f'results/{date_string}_transitions.npy', transitions)
-    np.save(f'results/{date_string}_x_values.npy', x_values)
-    print(f"Data saved in results/{date_string}.npy")
+    np.save(f'model_verification_results/{date_string}_t.npy', t)
+    np.save(f'model_verification_results/{date_string}_ans.npy', ans)
+    np.save(f'model_verification_results/{date_string}_transitions.npy', transitions)
+    np.save(f'model_verification_results/{date_string}_x_values.npy', x_values)
+    print(f"Data saved in model_verification_results/{date_string}... .npy")
 
     
 def make_animation(t, ans, transitions, x_values):
@@ -120,8 +120,8 @@ def make_animation(t, ans, transitions, x_values):
 
     # save animation in a map named gifs
     date_string = datetime.datetime.now().strftime("%d%b_%Hh%M")
-    ani.save(f"gifs/{date_string}.gif", writer='pillow', fps=25)
-    print(f"Animation saved in gifs/{date_string}.gif")
+    ani.save(f"model_verification_gifs/{date_string}.gif", writer='pillow', fps=25)
+    print(f"Animation saved in model_verification_gifs/{date_string}.gif")
 
 
 def get_all_coordinates(q):
