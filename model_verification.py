@@ -32,6 +32,7 @@ x_values = []
 while len(t) < len(times) and n_heelstrikes < 10:
     # apply rk4, will stop when the foot hits the ground
     t0, ans0, x_value = rk4(M, C, dSdt_frozen_body, q0, times)
+    print(len(t0))
 
     # add to the previous solution
     if n_heelstrikes == 0:
@@ -56,6 +57,8 @@ while len(t) < len(times) and n_heelstrikes < 10:
     transitions.append(t[-1])
     x_values.append(x_value)
     n_heelstrikes += 1
+
+print(f"number of heelstrikes: {n_heelstrikes}")
 
 # save the data
 save_animation_data(t, ans, transitions, x_values)

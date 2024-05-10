@@ -42,7 +42,7 @@ def rk4(M, C, f, y0, t):
         k3 = f(M, C, y[i] + h/2*k2, t[i] + h/2)
         k4 = f(M, C, y[i] + h*k3, t[i] + h)
         y[i+1] = y[i] + h/6*(k1 + 2*k2 + 2*k3 + k4)
-        if (get_all_coordinates(y[i+1][:5])[-3] < -1000.0):
+        if (get_all_coordinates(y[i+1][:5])[-3] < 0.0):
             y = y[:i+2]
             t = t[:i+2]
             x_value = get_all_coordinates(y[i+1][:5])[-4]
