@@ -22,7 +22,7 @@ from Lagrangian_equations import T, V, M, C
 # Choose what to use:
 Gravitational_collapse = False
 Frozen_body = True
-Fully_frozen_body = False # keep frozen body after heelstrike
+Fully_frozen_body = True # keep frozen body after heelstrike
 Heelstrike = True
 
 if Gravitational_collapse:
